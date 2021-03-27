@@ -1,0 +1,23 @@
+version: "3.6"
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "100k"
+    max-file: "1"
+
+services:
+  ignite-desafio-solid:
+    restart: always
+    user: "1000:1000"
+    build:
+      context: .
+      target: dev
+    environment:
+      - WATCH_FILES=${WATCH_FILES}
+    volumes:
+      - ".:/application"
+    ports:
+      - "3333:3333"
+      - "9229:9229"
+    logging: *default-logging
